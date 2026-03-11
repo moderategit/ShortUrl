@@ -1,0 +1,45 @@
+<div style="max-width: 1200px; margin: 20px auto; font-family: Arial, sans-serif;">
+  <h1>Usage Report - All Visits</h1>
+
+  <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+    <p><strong>Total Visits:</strong> <%= @total_visits %></p>
+    <p><strong>Unique Short URLs:</strong> <%= @unique_short_urls %></p>
+  </div>
+
+  <div style="margin: 20px 0;">
+    <%= link_to "← Back to Short URLs", short_urls_path, class: "btn" %>
+  </div>
+
+  <% if @visits.any? %>
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="background: #f0f0f0;">
+          <th style="text-align: left; padding: 10px; border-bottom: 2px solid #333;">Short Path</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 2px solid #333;">Target URL</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 2px solid #333;">IP Address</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 2px solid #333;">Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visits.each do |visit| %>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; font-family: monospace;">
+              <%= link_to visit.short_url.path, short_url_path(visit.short_url) %>
+            </td>
+            <td style="padding: 10px;">
+              <%= link_to truncate(visit.short_url.target_url, length: 40), visit.short_url.target_url, target: '_blank' %>
+            </td>
+            <td style="padding: 10px; font-family: monospace;">
+              <%= visit.ip_address %>
+            </td>
+            <td style="padding: 10px;">
+              <%= visit.visited_at.strftime('%Y-%m-%d %H:%M:%S') %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p style="color: #666; margin: 20px 0;">No visits recorded yet.</p>
+  <% end %>
+</div>
