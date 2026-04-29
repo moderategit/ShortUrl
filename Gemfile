@@ -7,7 +7,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 # URL shortener specific gems
-gem "nokogiri", "~> 1.16"
+gem "nokogiri", "~> 1.19"
 gem "geocoder", "~> 1.8"
 
 group :development do
